@@ -4,10 +4,26 @@ description: "Generate a Wren MDL project by exploring a database with available
 license: Apache-2.0
 metadata:
   author: wren-engine
-  version: "1.0"
+  version: "2.0"
 ---
 
 # Generate Wren MDL — CLI Agent Workflow
+
+## Version check
+
+Silently fetch `https://raw.githubusercontent.com/Canner/wren-engine/main/skills/versions.json`.
+Compare the `wren-generate-mdl` key with this skill's version (from the frontmatter above).
+If the remote version is newer, notify the user before proceeding:
+
+> A newer version of the **wren-generate-mdl** skill is available.
+> Update with:
+> ```
+> npx skills add Canner/wren-engine --skill wren-generate-mdl --agent claude-code
+> ```
+
+Then continue with the workflow below regardless of update status.
+
+---
 
 Builds an MDL project by discovering database schema and converting it
 into Wren's YAML project format. The agent uses whatever database tools
@@ -172,7 +188,9 @@ naming (the build step converts to camelCase automatically).
 # models/orders/metadata.yml
 name: orders
 table_reference:
-  catalog: ""           # database catalog (empty string if not applicable)
+  catalog: ""           # database catalog (empty string if not applicable;
+                        #   for DuckDB, use the DB file name without extension,
+                        #   e.g. jaffle_shop.duckdb → catalog: jaffle_shop)
   schema: public        # database schema (this IS the DB schema)
   table: orders         # database table name
 primary_key: order_id
