@@ -4,7 +4,7 @@ description: "Wren Engine CLI workflow guide for AI agents. Answer data question
 license: Apache-2.0
 metadata:
   author: wren-engine
-  version: "2.0"
+  version: "2.1"
 ---
 
 # Wren Engine CLI — Agent Workflow Guide
@@ -50,7 +50,9 @@ For SQL syntax, CTE-based modeling, and error diagnosis, see [references/wren-sq
 
 If this is the first query in the conversation, also run:
 
-    wren context instructions
+```text
+wren context instructions
+```
 
 If it returns content, treat it as **rules that override defaults** — apply them to all subsequent queries in this session.
 
@@ -216,8 +218,9 @@ For the CTE rewrite pipeline and additional error patterns, see [references/wren
 2. Test connection: `wren profile debug`
 3. Test query: `wren --sql "SELECT 1"`
 4. Initialize project: `wren context init`
-5. Index: `wren memory index`
-6. Verify: `wren --sql "SELECT * FROM <model> LIMIT 5"`
+5. Build manifest: `wren context build`
+6. Index: `wren memory index`
+7. Verify: `wren --sql "SELECT * FROM <model> LIMIT 5"`
 
 ---
 
@@ -243,7 +246,7 @@ wren --sql "SELECT * FROM <changed_model> LIMIT 1"
 
 ## Command decision tree
 
-```
+```text
 Get data back           → wren --sql "..."
 See translated SQL only → wren dry-plan --sql "..." (accepts -d <datasource> if no active profile)
 Validate against DB     → wren dry-run --sql "..."
